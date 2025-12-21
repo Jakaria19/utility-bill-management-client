@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "type": "hero",
+    "title": "Pay All Your Utility Bills in One Click",
+    "description": "Simplify your life by paying electricity, gas, water, and internet bills securely in one platform. Save time and stay stress-free every month.",
+    "buttonText": "Get Started",
+    "logo": "https://i.ibb.co.com/6JcMDt2w/banner2.png"
+  },
+  {
+    "id": 2,
+    "type": "hero",
+    "title": "Smart Way to Handle Monthly Payments",
+    "description": "Track your expenses, manage your bills, and get instant updates on your payment status—all in one smart utility dashboard.",
+    "buttonText": "Get Started",
+    "logo": "https://i.ibb.co.com/ymJytsMW/banner3.png"
+  },
+  {
+    "id": 3,
+    "type": "image",
+    "img": "https://pay99.co.in/assets/website-assets/img/banner1.png"
+  }
+]
