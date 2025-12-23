@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa";
 import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { AuthContext } from "../../../contexts/AuthContext";
+import { AuthContext } from "../../../context/AuthContext";
 
 const BillDetails = () => {
   const { id } = useParams();
