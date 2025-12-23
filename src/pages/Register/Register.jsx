@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
-import { AuthProvider } from "../../providers/AuthProvider";
+import { AuthContext } from "../../providers/AuthProvider";
 // import google from "../../assets/icon-google.png";
 // import formImg from "../../assets/img.png";
 import { FaEye } from "react-icons/fa";
@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 const Register = () => {
   const [show, setShow] = useState(false);
   const { register, updateUserProfile, signInWithGoogle, setLoading, setUser } =
-    useContext(AuthProvider);
+    useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";

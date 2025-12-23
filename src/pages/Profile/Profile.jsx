@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
-import { AuthProvider } from "../../providers/AuthProvider";
+import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 
 const Profile = () => {
-  const { user, updateUserProfile } = useContext(AuthProvider);
+  const { user, updateUserProfile } = useContext(AuthContext);
   const [name, setName] = useState(user?.displayName || "");
   const [photo, setPhoto] = useState(user?.photoURL || "");
 

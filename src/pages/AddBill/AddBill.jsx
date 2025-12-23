@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
-import { AuthProvider } from "../../providers/AuthProvider";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const AddBill = () => {
-  const { user } = useContext(AuthProvider);
+  const { user } = useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
