@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
-import { AuthContext } from "../../contexts/AuthContext";
+import { AuthContext } from "../../../context/AuthContext";
 
 const AddBill = () => {
   const { user } = useContext(AuthContext);

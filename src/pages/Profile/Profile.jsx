@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
+import { AuthContext } from "../../../context/AuthContext";
 import Swal from "sweetalert2";
 
 const Profile = () => {

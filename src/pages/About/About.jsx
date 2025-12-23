@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import about from "../../assets/about.png";
+// import about from "../../assets/about.png";
 import { Link } from "react-router";
 
 const About = () => {
