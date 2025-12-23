@@ -12,7 +12,7 @@
 import { createBrowserRouter } from "react-router-dom";
 // import App from "../App";
 import Home from "../src/pages/Home/Home";
-import AllBills from "../pages/AllBills";
+import AllBills from "./pages/AddBill/AddBill";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import MyPayments from "../pages/MyPayments";
