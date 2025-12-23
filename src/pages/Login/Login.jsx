@@ -2,43 +2,39 @@ import React, { useContext, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaGoogle } from "react-icons/fa";
 import { IoEyeOff } from "react-icons/io5";
 
 const Login = () => {
   const [show, setShow] = useState(false);
   const { login, signInWithGoogle, resetPassword, setLoading, setUser } =
     useContext(AuthContext);
-
   const navigate = useNavigate();
   const location = useLocation();
   const emailRef = useRef();
   const from = location.state?.from?.pathname || "/";
 
-  const formImg = "https://via.placeholder.com/400";
-  const googleIcon =
-    "https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg";
+  const loginIllustration =
+    "https://cdni.iconscout.com/illustration/premium/thumb/online-payment-4437166-3714541.png";
 
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-
     login(email, password)
-      .then((result) => {
+      .then(() => {
         setLoading(false);
         Swal.fire({
-          title: "Sign In Successful!",
+          title: "Welcome Back!",
           icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
         });
         navigate(from, { replace: true });
       })
-      .catch((error) => {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: error.message,
-        });
+      .catch((err) => {
+        setLoading(false);
+        Swal.fire({ icon: "error", title: "Login Failed", text: err.message });
       });
   };
 
@@ -47,39 +43,18 @@ const Login = () => {
       .then((result) => {
         setLoading(false);
         setUser(result.user);
-        navigate(from);
+
+        navigate(from, { replace: true });
+
         Swal.fire({
           title: "Google Sign in Successful!",
           icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
         });
       })
       .catch((error) => {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: error.message,
-        });
-      });
-  };
-
-  const handleForgetPassword = () => {
-    const email = emailRef.current.value;
-    if (!email) {
-      Swal.fire({
-        icon: "warning",
-        title: "Please enter your email first!",
-      });
-      return;
-    }
-    resetPassword(email)
-      .then(() => {
         setLoading(false);
-        Swal.fire({
-          title: "Check your Email to reset password!",
-          icon: "success",
-        });
-      })
-      .catch((error) => {
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -89,87 +64,116 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row mt-16 transition-colors duration-500 bg-gradient-to-r from-[#E9E4FF] to-[#F8F8FF] dark:from-[#1F1F2E] dark:to-[#2C2C3A]">
-      {/* Left side image */}
-      <div className="hidden md:flex md:w-1/2 justify-center items-center">
-        <img
-          src={formImg}
-          alt="illustration"
-          className="max-w-[80%] h-auto object-contain"
-        />
-      </div>
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-[#0F172A] p-6">
+      <div className="flex w-full max-w-5xl bg-white/80 dark:bg-[#1E293B]/90 backdrop-blur-xl rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] overflow-hidden border border-white/20">
+        <div className="hidden md:flex w-1/2 bg-[#0D9488] relative items-center justify-center p-12 overflow-hidden">
+          <div className="absolute top-[-10%] left-[-10%] w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-[-10%] right-[-10%] w-64 h-64 bg-emerald-400/20 rounded-full blur-3xl"></div>
 
-      {/* Right side form */}
-      <div className="flex flex-1 justify-center items-center bg-gradient-to-r from-[#8F7FF0] via-[#9E8FF5] to-[#C2BAFF] dark:from-[#3B3478] dark:via-[#4C4391] dark:to-[#5E54AC] p-6 md:rounded-l-4xl">
-        <div className="bg-white/90 dark:bg-[#1E1E2A]/90 backdrop-blur-lg rounded-2xl shadow-lg w-full max-w-md p-8 border border-gray-100 dark:border-gray-700">
-          <h2 className="text-3xl font-bold text-center text-gray-800 dark:text-gray-100 mb-4">
-            Hello!
-          </h2>
-          <p className="text-center text-gray-500 dark:text-gray-400 mb-6">
-            Sign In to Continue
-          </p>
+          <div className="relative text-center z-10">
+            <img
+              src={loginIllustration}
+              alt="PaySwift Login"
+              className="w-full max-w-sm mx-auto animate-pulse-slow drop-shadow-2xl"
+            />
+            <h2 className="text-4xl font-extrabold text-white mt-8 tracking-tight">
+              PaySwift <span className="text-emerald-200">Portal</span>
+            </h2>
+            <p className="text-emerald-50/80 mt-4 text-sm font-medium leading-relaxed px-6">
+              Experience the future of utility management. Quick, secure, and
+              smart billing solutions.
+            </p>
+          </div>
+        </div>
 
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <input
-                type="email"
-                placeholder="Email Address"
-                name="email"
-                ref={emailRef}
-                className="w-full px-4 py-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-[#8C7BF0] bg-white dark:bg-[#2B2B3D] dark:border-gray-600 text-gray-800 dark:text-gray-100"
-                required
-              />
+        <div className="w-full md:w-1/2 p-10 lg:p-14 flex flex-col justify-center">
+          <div className="max-w-md mx-auto w-full">
+            <div className="mb-10 text-center md:text-left">
+              <h2 className="text-4xl font-black text-slate-800 dark:text-white mb-3">
+                Welcome Back
+              </h2>
+              <p className="text-slate-500 dark:text-slate-400 font-medium">
+                Log in to stay connected and manage your bills.
+              </p>
             </div>
 
-            <div className="relative">
-              <input
-                required
-                type={show ? "text" : "password"}
-                name="password"
-                placeholder="••••••••"
-                className="w-full px-4 py-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-[#8C7BF0] bg-white dark:bg-[#2B2B3D] dark:border-gray-600 text-gray-800 dark:text-gray-100"
-              />
-              <span
-                onClick={() => setShow(!show)}
-                className="absolute right-[15px] top-[16px] cursor-pointer text-gray-600 dark:text-gray-300"
+            <form onSubmit={handleLogin} className="space-y-6">
+              <div className="group">
+                <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1 transition-colors group-focus-within:text-[#10B981]">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  ref={emailRef}
+                  placeholder="john@example.com"
+                  className="w-full mt-2 px-6 py-4 rounded-2xl bg-slate-100 dark:bg-slate-800/50 border-2 border-transparent focus:border-[#10B981] focus:bg-white dark:focus:bg-slate-800 outline-none transition-all duration-300 text-sm font-medium"
+                  required
+                />
+              </div>
+
+              <div className="group relative">
+                <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1 transition-colors group-focus-within:text-[#10B981]">
+                  Security Password
+                </label>
+                <div className="relative">
+                  <input
+                    type={show ? "text" : "password"}
+                    name="password"
+                    placeholder="••••••••"
+                    className="w-full mt-2 px-6 py-4 rounded-2xl bg-slate-100 dark:bg-slate-800/50 border-2 border-transparent focus:border-[#10B981] focus:bg-white dark:focus:bg-slate-800 outline-none transition-all duration-300 text-sm font-medium"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShow(!show)}
+                    className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#10B981] p-1 transition-colors"
+                  >
+                    {show ? <FaEye size={20} /> : <IoEyeOff size={20} />}
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex justify-end pt-1">
+                <button
+                  type="button"
+                  onClick={() => resetPassword(emailRef.current.value)}
+                  className="text-xs font-bold text-[#10B981] hover:text-[#0D9488] transition-colors uppercase tracking-wider"
+                >
+                  Forgot Password?
+                </button>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-[#10B981] hover:bg-[#0D9488] text-white font-bold py-4 rounded-2xl shadow-[0_10px_20px_rgba(16,185,129,0.3)] hover:shadow-none transition-all duration-300 transform active:scale-[0.98]"
               >
-                {show ? <FaEye /> : <IoEyeOff />}
+                Sign Into Account
+              </button>
+            </form>
+
+            <div className="relative my-10 flex items-center justify-center">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-slate-200 dark:border-slate-700"></div>
+              </div>
+              <span className="relative bg-white dark:bg-[#1E293B] px-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
+                Fast Login
               </span>
             </div>
 
             <button
-              type="submit"
-              className="w-full bg-gradient-to-r from-[#7A6AE0] to-[#9E8FF5] hover:opacity-95 text-white py-3 rounded-full transition duration-200 cursor-pointer"
+              onClick={handleGoogleSignIn}
+              className="w-full flex items-center justify-center gap-3 bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 hover:border-[#10B981] py-4 rounded-2xl font-bold text-slate-700 dark:text-slate-200 transition-all duration-300 group"
             >
-              Login
+              <FaGoogle className="text-red-500 group-hover:scale-110 transition-transform" />
+              <span className="text-sm">Authorize with Google</span>
             </button>
-          </form>
 
-          <div className="divider text-gray-400 dark:text-gray-500">OR</div>
-
-          <button
-            onClick={handleGoogleSignIn}
-            className="btn btn-outline border-[#8C7BF0] text-[#6D5DEB] hover:text-white hover:bg-[#8C7BF0] w-full"
-          >
-            <img src={googleIcon} alt="" className="w-5 h-5 mr-2" />
-            Sign In with Google
-          </button>
-
-          <div className="text-right mt-2">
-            <button
-              onClick={handleForgetPassword}
-              className="text-sm text-[#6D5DEB] dark:text-[#B6AFFF] hover:underline cursor-pointer"
-            >
-              Forgot Password?
-            </button>
-          </div>
-
-          <div className="text-center text-sm mt-6">
-            <p className="text-gray-600 dark:text-gray-400">
-              Don’t have an account?{" "}
+            <p className="text-center mt-10 text-sm font-medium text-slate-500">
+              Not a member?{" "}
               <Link
                 to="/register"
-                className="text-[#6D5DEB] font-semibold hover:underline"
+                className="text-[#10B981] font-black hover:underline underline-offset-4 ml-1"
               >
                 Register Now
               </Link>

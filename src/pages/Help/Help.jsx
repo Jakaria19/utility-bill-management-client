@@ -104,7 +104,7 @@ const Help = () => {
         </p>
         <a
           href="mailto:support@utilitybills.com"
-          className="inline-block bg-gradient-to-r from-[#7A6AE0] to-[#9E8FF5] hover:from-[#6957DB] hover:to-[#8C7BF0] text-white py-3 px-8 rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+          className="inline-block bg-gradient-to-r from-[#0D9488] to-[#10B981] hover:from-[#0F766E] hover:to-[#059669] text-white py-3 px-8 rounded-full shadow-md hover:shadow-lg transition-all duration-300"
         >
           Contact Support
         </a>

@@ -101,7 +101,7 @@ const Register = () => {
       </div>
 
       {/* Right side form */}
-      <div className="flex flex-1 justify-center items-center bg-gradient-to-r from-[#8F7FF0] via-[#9E8FF5] to-[#C2BAFF] dark:from-[#3B3478] dark:via-[#4C4391] dark:to-[#5E54AC] p-6 md:rounded-l-4xl">
+      <div className="flex flex-1 justify-center items-center bg-gradient-to-r from-[#0D9488] via-[#10B981] to-[#0F766E] dark:from-[#0F766E] dark:via-[#10B981] dark:to-[#059669] p-6 md:rounded-l-4xl">
         <div className="bg-white/90 dark:bg-[#1E1E2A]/90 backdrop-blur-lg rounded-2xl shadow-lg w-full max-w-md p-8 border border-gray-100 dark:border-gray-700">
           <h2 className="text-3xl font-bold text-center text-gray-800 dark:text-gray-100 mb-4">
             Welcome!
@@ -160,7 +160,7 @@ const Register = () => {
 
           <button
             onClick={handleGoogleSignIn}
-            className="btn btn-outline border-[#8C7BF0] text-[#6D5DEB] hover:text-white hover:bg-gradient-to-r hover:from-[#7A6AE0] hover:to-[#9E8FF5] w-full"
+            className="btn btn-outline border-[#8C7BF0] text-[#6D5DEB] hover:text-white hover:bg-gradient-to-r hover:from-[#0F766E] hover:to-[#059669] w-full"
           >
             <img src={google} alt="" className="w-5 h-5 mr-2" />
             Sign Up with Google

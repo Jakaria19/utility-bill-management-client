@@ -28,7 +28,7 @@ const Hero = () => {
   }
 
   return (
-    <div className="relative w-full overflow-hidden rounded-lg mt-16 bg-linear-to-r from-[#8F7FF0] via-[#9E8FF5] to-[#C2BAFF]">
+    <div className="relative w-full overflow-hidden rounded-lg mt-16 bg-linear-to-r from-[#0D9488] via-[#10B981] to-[#059669]">
       <div
         className="flex transition-transform duration-3000 ease-in-out"
         style={{ transform: `translateX(-${current * 100}%)` }}

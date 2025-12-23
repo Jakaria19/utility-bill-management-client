@@ -63,7 +63,7 @@ const About = () => {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="mt-6 bg-gradient-to-r from-[#7A6AE0] to-[#9E8FF5] hover:from-[#6957DB] hover:to-[#8C7BF0] text-white py-3 px-8 rounded-full font-medium shadow-md transition-all duration-300"
+          className="mt-6 bg-gradient-to-r from-[#0D9488] to-[#10B981] hover:from-[#0F766E] hover:to-[#059669] text-white py-3 px-8 rounded-full font-medium shadow-md transition-all duration-300"
         >
           <Link to="/help">Learn More</Link>
         </motion.button>

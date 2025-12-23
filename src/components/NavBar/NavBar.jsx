@@ -118,9 +118,9 @@ const NavBar = () => {
         </div>
         {/* logo */}
         <Link to="/" className="font-bold text-xl flex items-center gap-2">
-          Utility
-          <span className="bg-linear-to-r from-[#7A6AE0] to-[#9E8FF5] bg-clip-text text-transparent">
-            Bills
+          Pay
+          <span className="bg-linear-to-r from-[#0D9488] to-[#10B981] bg-clip-text text-transparent">
+            Swift
           </span>
         </Link>
       </div>
@@ -249,7 +249,7 @@ const NavBar = () => {
               <li>
                 <button
                   onClick={handleSignOut}
-                  className="btn text-white hover:opacity-95 bg-gradient-to-r from-[#7A6AE0] to-[#9E8FF5] hover:from-[#6957DB] hover:to-[#8C7BF0]"
+                  className="btn text-white hover:opacity-95 bg-gradient-to-r from-[#0D9488] to-[#10B981] hover:from-[#0F766E] hover:to-[#059669]"
                 >
                   <IoLogOut />
                   Sign Out
@@ -268,7 +268,7 @@ const NavBar = () => {
 
             <Link
               to="/login"
-              className="btn bg-linear-to-r from-[#7A6AE0] to-[#9E8FF5] hover:from-[#6957DB] hover:to-[#8C7BF0] border-none text-white hover:opacity-90 ml-3"
+              className="btn bg-linear-to-r from-[#0D9488] to-[#10B981] hover:from-[#0F766E] hover:to-[#059669] border-none text-white hover:opacity-90 ml-3"
             >
               <IoLogIn /> Login
             </Link>

@@ -52,7 +52,7 @@ const AddBill = () => {
         transition={{ duration: 0.6 }}
         className="bg-white dark:bg-gray-800 shadow-2xl rounded-2xl p-8 w-full max-w-3xl"
       >
-        <h1 className="text-3xl md:text-4xl font-bold text-center bg-gradient-to-r from-[#7A6AE0] to-[#9E8FF5] bg-clip-text text-transparent mb-8">
+        <h1 className="text-3xl md:text-4xl font-bold text-center bg-gradient-to-r from-[#0D9488] to-[#10B981] bg-clip-text text-transparent mb-8">
           Add a New Bill
         </h1>
 
