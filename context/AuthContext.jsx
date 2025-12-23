@@ -7,7 +7,7 @@ import {
   signInWithPopup,
   updateProfile,
 } from "firebase/auth";
-import { auth, googleProvider } from "../src/components/firebase/firebase";
+import { auth, googleProvider } from "../src/components/firebase/firebase.config";
 
 const AuthContext = createContext();
 

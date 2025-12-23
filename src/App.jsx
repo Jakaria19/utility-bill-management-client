@@ -1,34 +1,20 @@
-import { createBrowserRouter } from "react-router-dom";
-// import App from "../App";
-import Home from "../src/pages/Home/Home";
-import AllBills from "./pages/AddBill/AddBill";
-import Login from "./pages/Login/Login";
-import Register from "./pages/Register/Register";
-import MyPayments from "./pages/MyBills/MyBills";
-import PrivateRoute from "./Private/PrivateRoute";
+import { Outlet } from "react-router-dom";
+import Navbar from "./components/NavBar/NavBar";
+import Footer from "./components/Footer/Footer";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    children: [
-      { path: "/", element: <Home /> },
-      { path: "/bills", element: <AllBills /> },
-      { path: "/login", element: <Login /> },
-      { path: "/register", element: <Register /> },
-      {
-        path: "/my-payments",
-        element: (
-          <PrivateRoute>
-            <MyPayments />
-          </PrivateRoute>
-        ),
-      },
-    ],
-  },
-]);
+function App() {
+  return (
+    <div className="max-w-7xl mx-auto font-poppins">
+      <Navbar />
+      <div className="min-h-[calc(100vh-280px)] py-10">
+        <Outlet />
+      </div>
+      <Footer />
+    </div>
+  );
+}
 
-export default router;
+export default App;
 
 // import "./App.css";
 
