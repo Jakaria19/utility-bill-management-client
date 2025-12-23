@@ -1,12 +1,12 @@
-
 import React, { useContext, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
-import { AuthContext } from "../../../context/AuthContext";
+import { AuthContext } from "../../providers/AuthProvider";
 // import google from "../../assets/icon-google.png";
 // import formImg from "../../assets/img.png";
 import Swal from "sweetalert2";
 import { FaEye } from "react-icons/fa";
 import { IoEyeOff } from "react-icons/io5";
+const { user, logout, signInWithGoogle } = useContext(AuthContext);
 
 const Login = () => {
   const [show, setShow] = useState(false);

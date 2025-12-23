@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa";
 import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { AuthContext } from "../../../context/AuthContext";
+import { AuthProvider } from "../../providers/AuthProvider";
 
 const BillDetails = () => {
   const { id } = useParams();
@@ -16,7 +16,7 @@ const BillDetails = () => {
   const [error, setError] = useState(false);
   const [isCurrentMonth, setIsCurrentMonth] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthProvider);
 
   //  fetch single bill data
   useEffect(() => {

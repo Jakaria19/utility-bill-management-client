@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AuthContext } from "../components/contexts/AuthProvider";
+import { AuthContext } from "../providers/AuthProvider";
 import { Navigate, useLocation } from "react-router-dom";
 import { FadeLoader } from "react-spinners";
 

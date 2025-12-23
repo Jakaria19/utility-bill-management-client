@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { GoHomeFill } from "react-icons/go";
 import { ImBoxAdd } from "react-icons/im";
 import { Link } from "react-router";
-import { AuthContext } from "../../../context/AuthContext";
+import { AuthProvider } from "../../providers/AuthProvider";
 import { FaSun, FaMoon } from "react-icons/fa";
 import { IoLogIn, IoLogOut } from "react-icons/io5";
 import { FaDownload, FaGear, FaUser } from "react-icons/fa6";
@@ -10,7 +10,7 @@ import { FaUserPlus } from "react-icons/fa";
 import MyLink from "../MyLink/MyLink";
 
 const NavBar = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthProvider);
   console.log(user);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const [showNavbar, setShowNavbar] = useState(true);
