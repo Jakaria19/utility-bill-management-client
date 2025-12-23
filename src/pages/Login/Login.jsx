@@ -1,7 +1,7 @@
 
 import React, { useContext, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
-import { AuthContext } from "../../contexts/AuthContext";
+import { AuthContext } from "../../../context/AuthContext";
 import google from "../../assets/icon-google.png";
 import formImg from "../../assets/img.png";
 import Swal from "sweetalert2";
