@@ -11,6 +11,14 @@ import { router } from "../src/routes/Routes";
 import { Toaster } from "react-hot-toast";
 
 createRoot(document.getElementById("root")).render(
+  // <h1>Hello World! My app is running.</h1>
+
+  // <React.StrictMode>
+  //   <AuthProvider>
+  //     <RouterProvider router={router} />
+  //   </AuthProvider>
+  // </React.StrictMode>
+
   <StrictMode>
     <AuthProvider>
       <RouterProvider router={router} />

@@ -11,7 +11,7 @@ import MyLink from "../MyLink/MyLink";
 
 const NavBar = () => {
   const { user, logout } = useContext(AuthContext);
-  console.log(user);
+  // console.log(user);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);

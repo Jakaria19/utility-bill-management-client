@@ -81,11 +81,10 @@ const Footer = () => {
         <p>
           © {new Date().getFullYear()}{" "}
           <span className="text-white font-semibold">UtilityBill</span>. All
-          Rights Reserved. Made with by
+          Rights Reserved.
           <span className="text-[#7A6AE0] font-medium ml-1 cursor-pointer">
-            <a target="_blank" href="https://github.com/ziaullhaque">
-              Ziaull Haque
-            </a>
+            <a target="_blank" href="https://github.com/">
+                  </a>
           </span>
         </p>
       </div>
