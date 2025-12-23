@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../../context/AuthContext";
-import google from "../../assets/icon-google.png";
-import formImg from "../../assets/img.png";
+// import google from "../../assets/icon-google.png";
+// import formImg from "../../assets/img.png";
 import { FaEye } from "react-icons/fa";
 import { IoEyeOff } from "react-icons/io5";
 import Swal from "sweetalert2";

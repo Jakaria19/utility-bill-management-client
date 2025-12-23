@@ -1,22 +1,11 @@
-// import "./App.css";
-
-// function App() {
-//   return (
-//     <>
-//     </>
-//   );
-// }
-
-// export default App;
-
 import { createBrowserRouter } from "react-router-dom";
 // import App from "../App";
 import Home from "../src/pages/Home/Home";
 import AllBills from "./pages/AddBill/AddBill";
-import Login from "../pages/Login";
-import Register from "../pages/Register";
-import MyPayments from "../pages/MyPayments";
-import PrivateRoute from "./PrivateRoute";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
+import MyPayments from "./pages/MyBills/MyBills";
+import PrivateRoute from "./Private/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -40,3 +29,14 @@ const router = createBrowserRouter([
 ]);
 
 export default router;
+
+// import "./App.css";
+
+// function App() {
+//   return (
+//     <>
+//     </>
+//   );
+// }
+
+// export default App;

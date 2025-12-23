@@ -1,6 +1,6 @@
 import React from "react";
-import NavBar from "../components/NavBar/NavBar";
-import Footer from "../components/Footer/Footer";
+import NavBar from "../NavBar/NavBar";
+import Footer from "../Footer/Footer";
 import { Outlet } from "react-router";
 
 const RootLayouts = () => {
