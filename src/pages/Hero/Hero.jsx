@@ -44,7 +44,7 @@ const Hero = () => {
                   <p className="text-lg text-gray-100 max-w-xl mx-auto lg:mx-0">
                     {slide.description}
                   </p>
-                  <button className="btn bg-linear-to-r from-[#7A6AE0] to-[#9E8FF5] hover:from-[#6957DB] hover:to-[#8C7BF0] text-white px-8 py-3 rounded-lg font-semibold shadow-md">
+                  <button className="btn bg-linear-to-r from-[#0D9488] to-[#059669] hover:from-[#059669] hover:to-[#10B981] text-white px-8 py-3 rounded-lg font-semibold shadow-md">
                     {slide.buttonText}
                   </button>
                 </div>
@@ -71,13 +71,13 @@ const Hero = () => {
           onClick={() =>
             setCurrent((prev) => (prev - 1 + slides.length) % slides.length)
           }
-          className="btn btn-circle bg-linear-to-r from-[#7A6AE0] to-[#9E8FF5] border-none text-white"
+          className="btn btn-circle bg-linear-to-r from-[#10B981] to-[#0D9488] border-none text-white"
         >
           ❮
         </button>
         <button
           onClick={() => setCurrent((prev) => (prev + 1) % slides.length)}
-          className="btn btn-circle bg-linear-to-l from-[#7A6AE0] to-[#9E8FF5] border-none text-white"
+          className="btn btn-circle bg-linear-to-l from-[#10B981] to-[#0D9488] border-none text-white"
         >
           ❯
         </button>
