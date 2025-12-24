@@ -3,15 +3,21 @@ import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-import { FaFilePdf } from "react-icons/fa";
+import {
+  FaFilePdf,
+  FaArrowDown,
+  FaPenToSquare,
+  FaTrashCan,
+  FaDownload,
+} from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 const MyBills = () => {
   const { user } = useContext(AuthContext);
   const [payments, setPayments] = useState([]);
-  // const [bill, setBill] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // fetch payments
+  // Fetch payments
   useEffect(() => {
     if (!user?.email) return;
     fetch(
@@ -28,132 +34,84 @@ const MyBills = () => {
       });
   }, [user]);
 
-  // download single bill
+  // Download Single Bill (Themed PDF)
   const handleDownload = (bill) => {
     const doc = new jsPDF();
-    doc.setFontSize(18);
-    doc.text("Utility Bill Receipt", 70, 20);
+    doc.setFillColor(13, 148, 136);
+    doc.rect(0, 0, 210, 40, "F");
 
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(22);
+    doc.text("PaySwift Receipt", 14, 25);
+
+    doc.setTextColor(40, 40, 40);
     doc.setFontSize(12);
-    doc.text(`Bill ID: ${bill.billId || "N/A"}`, 20, 40);
-    // doc.text(`Bill Title: ${bill.billTitle || "Utility Bill"}`, 20, 50);
-    doc.text(`Amount: ${bill.amount} `, 20, 60);
-    doc.text(`Date: ${new Date(bill.date).toLocaleDateString()}`, 20, 70);
-    doc.text(`Username: ${bill.username || "N/A"}`, 20, 80);
-    doc.text(`Phone: ${bill.phone || "N/A"}`, 20, 90);
-    doc.text(`Address: ${bill.address || "Not provided"}`, 20, 100);
-    doc.text(`Email: ${bill.email || user.email}`, 20, 110);
-    doc.text("Status: Paid ", 20, 120);
-    doc.text("Thank you for using Utility Bill System!", 40, 140);
-    doc.save(`${bill.billTitle || "bill"}-${bill._id}.pdf`);
-  };
+    doc.text(`Transaction ID: ${bill._id}`, 14, 55);
+    doc.text(
+      `Billing Date: ${new Date(bill.date).toLocaleDateString()}`,
+      14,
+      65
+    );
 
-  // // update bill
-  // const handleUpdate = async (bill) => {
-  //   const { value: newAmount } = await Swal.fire({
-  //     title: "Update Bill Amount",
-  //     input: "text",
-  //     inputLabel: "Enter new amount",
-  //     inputValue: bill.amount,
-  //     showCancelButton: true,
-  //     confirmButtonText: "Update",
-  //   });
-
-  //   if (!newAmount) return;
-
-  //   fetch(`https://utility-bill-management.vercel.app/payments/${bill._id}`, {
-  //     method: "PUT",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ amount: newAmount }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (data.modifiedCount > 0) {
-  //         Swal.fire("Updated!", "Bill amount updated successfully.", "success");
-  //         setPayments((prev) =>
-  //           prev.map((p) =>
-  //             p._id === bill._id ? { ...p, amount: newAmount } : p
-  //           )
-  //         );
-  //       }
-  //     });
-  // };
-  const handleUpdate = async (bill) => {
-    const { value: formValues } = await Swal.fire({
-      title: "Update Bill Information",
-      html: `
-      <input id="swal-username" class="swal2-input" readOnly placeholder="Name" value="${
-        bill.username || ""
-      }">
-      <input id="swal-email" class="swal2-input" readOnly placeholder="Email" value="${
-        bill.email || user.email
-      }">
-      <input id="swal-phone" class="swal2-input" placeholder="Phone" value="${
-        bill.phone || ""
-      }">
-      <input id="swal-address" class="swal2-input"  placeholder="Address" value="${
-        bill.address || ""
-      }">
-      <input id="swal-amount" class="swal2-input" readOnly type="number" placeholder="Amount" value="${
-        bill.amount || ""
-      }">
-      <input id="swal-date" class="swal2-input" readOnly type="date" value="${
-        bill.date ? new Date(bill.date).toISOString().split("T")[0] : ""
-      }">
-    `,
-      focusConfirm: false,
-      showCancelButton: true,
-      confirmButtonText: "Update",
-      preConfirm: () => {
-        return {
-          username: document.getElementById("swal-username").value,
-          email: document.getElementById("swal-email").value,
-          phone: document.getElementById("swal-phone").value,
-          address: document.getElementById("swal-address").value,
-          amount: document.getElementById("swal-amount").value,
-          date: document.getElementById("swal-date").value,
-        };
-      },
+    autoTable(doc, {
+      startY: 75,
+      head: [["Description", "Details"]],
+      body: [
+        ["Customer Name", bill.username || "N/A"],
+        ["Email Address", bill.email || user.email],
+        ["Phone", bill.phone || "N/A"],
+        ["Service Address", bill.address || "Not provided"],
+        ["Total Amount", `${bill.amount} BDT`],
+        ["Status", "SUCCESSFULLY PAID"],
+      ],
+      theme: "striped",
+      headStyles: { fillColor: [13, 148, 136] },
     });
 
-    if (!formValues) return;
+    doc.setFontSize(10);
+    doc.setTextColor(150, 150, 150);
+    doc.text(
+      "This is a computer-generated receipt. No signature required.",
+      14,
+      doc.lastAutoTable.finalY + 20
+    );
 
-    fetch(`https://utility-bill-management.vercel.app/payments/${bill._id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formValues),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.modifiedCount > 0) {
-          Swal.fire(
-            "Updated!",
-            "Bill information updated successfully.",
-            "success"
-          );
-          setPayments((prev) =>
-            prev.map((p) => (p._id === bill._id ? { ...p, ...formValues } : p))
-          );
-        } else {
-          Swal.fire("No Change!", "No fields were updated.", "info");
-        }
-      })
-      .catch((err) => {
-        console.error("Error updating bill:", err);
-        Swal.fire("Error!", "Failed to update bill.", "error");
-      });
+    doc.save(`Receipt-${bill._id}.pdf`);
   };
 
-  //  delete bill
+  // Download All (Themed PDF)
+  const handleDownloadAll = () => {
+    if (payments.length === 0) return;
+    const doc = new jsPDF();
+    doc.text("PaySwift - Billing History Report", 14, 15);
+
+    const rows = payments.map((b, i) => [
+      i + 1,
+      b.username || "N/A",
+      b.amount,
+      new Date(b.date).toLocaleDateString(),
+      b.address || "N/A",
+    ]);
+
+    autoTable(doc, {
+      head: [["#", "User", "Amount", "Date", "Address"]],
+      body: rows,
+      startY: 25,
+      headStyles: { fillColor: [13, 148, 136] },
+    });
+    doc.save("Billing_History_PaySwift.pdf");
+  };
+
+  // Delete bill
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "This transaction record will be permanently removed.",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#4B1CCB",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonColor: "#0D9488",
+      cancelButtonColor: "#EF4444",
+      confirmButtonText: "Yes, delete",
     }).then((result) => {
       if (result.isConfirmed) {
         fetch(`https://utility-bill-management.vercel.app/payments/${id}`, {
@@ -163,94 +121,62 @@ const MyBills = () => {
           .then((data) => {
             if (data.success) {
               setPayments((prev) => prev.filter((bill) => bill._id !== id));
-
-              Swal.fire("Deleted!", "Your bill has been deleted.", "success");
+              Swal.fire("Deleted!", "Record removed.", "success");
             }
-          })
-          .catch((err) => {
-            console.error("Error deleting bill:", err);
-            Swal.fire("Error!", "Failed to delete bill.", "error");
           });
       }
     });
   };
 
-  // download all
-  const handleDownloadAll = () => {
-    if (payments.length === 0) {
-      Swal.fire({
-        icon: "info",
-        title: "No Bills Found!",
-        text: "You have no paid bills to download.",
-      });
-      return;
-    }
-
-    const doc = new jsPDF();
-    doc.setFontSize(18);
-    doc.text("Utility Bill Report", 75, 20);
-
-    const columns = [
-      "#",
-      "Bill ID",
-      "Title",
-      "Username",
-      "Phone",
-      "Amount",
-      "Date",
-      "Address",
-    ];
-
-    const rows = payments.map((b, i) => [
-      i + 1,
-      b.billId || "N/A",
-      // b.billTitle || b.title || "Utility Bill",
-      b.username || "N/A",
-      b.phone || "N/A",
-      b.amount || "N/A",
-      new Date(b.date).toLocaleDateString(),
-      b.address || "Not provided",
-    ]);
-
-    autoTable(doc, {
-      head: [columns],
-      body: rows,
-      startY: 30,
-      theme: "striped",
-      headStyles: { fillColor: [99, 46, 227], halign: "center" },
-      styles: { halign: "center", fontSize: 9 },
+  const handleUpdate = async (bill) => {
+    const { value: formValues } = await Swal.fire({
+      title: "Update Information",
+      html: `
+        <div class="flex flex-col gap-3 p-2">
+          <input id="swal-phone" class="swal2-input !m-0 w-full" placeholder="Phone" value="${
+            bill.phone || ""
+          }">
+          <input id="swal-address" class="swal2-input !m-0 w-full" placeholder="Address" value="${
+            bill.address || ""
+          }">
+        </div>
+      `,
+      confirmButtonText: "Save Changes",
+      confirmButtonColor: "#0D9488",
+      showCancelButton: true,
+      preConfirm: () => ({
+        phone: document.getElementById("swal-phone").value,
+        address: document.getElementById("swal-address").value,
+      }),
     });
 
-    const totalAmount = payments.reduce(
-      (sum, b) => sum + Number(b.amount || 0),
-      0
-    );
-
-    doc.text(
-      `Total Bills Paid: ${payments.length}`,
-      14,
-      doc.lastAutoTable.finalY + 10
-    );
-    doc.text(`Total Amount: ${totalAmount}`, 14, doc.lastAutoTable.finalY + 20);
-    doc.text(
-      "Thank you for using Utility Bill System!",
-      60,
-      doc.lastAutoTable.finalY + 35
-    );
-    doc.save(`My_Bills_Report_${new Date().toLocaleDateString()}.pdf`);
+    if (formValues) {
+      fetch(`https://utility-bill-management.vercel.app/payments/${bill._id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formValues),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.modifiedCount > 0) {
+            setPayments((prev) =>
+              prev.map((p) =>
+                p._id === bill._id ? { ...p, ...formValues } : p
+              )
+            );
+            Swal.fire("Success", "Updated successfully", "success");
+          }
+        });
+    }
   };
 
   if (loading)
     return (
-      <div className="flex items-center justify-center h-screen">
-        <span className="loading loading-bars loading-lg"></span>
-      </div>
-    );
-
-  if (payments.length === 0)
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        No bills paid yet.
+      <div className="flex flex-col items-center justify-center h-screen bg-slate-50 dark:bg-[#0F172A]">
+        <span className="loading loading-ring loading-lg text-[#0D9488]"></span>
+        <p className="mt-4 font-black text-slate-400 animate-pulse tracking-widest uppercase text-xs">
+          Synchronizing Records
+        </p>
       </div>
     );
 
@@ -260,81 +186,146 @@ const MyBills = () => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 mt-20">
-      <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 dark:text-gray-100 mb-10">
-        My Pay Bills
-      </h2>
+    <div className="min-h-screen bg-slate-50 dark:bg-[#0F172A] py-24 px-6 lg:px-20 transition-colors duration-500">
+      <div className="max-w-7xl mx-auto">
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+          >
+            <h2 className="text-4xl font-black text-slate-800 dark:text-white tracking-tight">
+              Transaction{" "}
+              <span className="bg-gradient-to-r from-[#0D9488] to-[#10B981] bg-clip-text text-transparent">
+                History
+              </span>
+            </h2>
+            <p className="text-slate-500 dark:text-slate-400 font-medium mt-2">
+              Manage and track all your utility settlements.
+            </p>
+          </motion.div>
 
-      <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
-        <h1 className="font-semibold text-gray-500">
-          Total Bills Paid:{" "}
-          <span className="text-[#632EE3]">{payments.length}</span> | Total
-          Amount:{" "}
-          <span className="text-green-600 font-semibold">
-            BDT {totalAmount}
-          </span>
-        </h1>
-        <button
-          onClick={handleDownloadAll}
-          className="btn bg-linear-to-r from-[#4B1CCB] to-[#8748FF] text-white flex items-center gap-2 shadow-md hover:shadow-lg"
-        >
-          <FaFilePdf /> Download All
-        </button>
-      </div>
+          <button
+            onClick={handleDownloadAll}
+            className="flex items-center gap-2 bg-slate-800 dark:bg-slate-700 text-white px-6 py-4 rounded-2xl font-bold text-sm hover:bg-[#0D9488] transition-all shadow-xl shadow-slate-200 dark:shadow-none"
+          >
+            <FaFilePdf className="text-lg" /> Export Full Report
+          </button>
+        </div>
 
-      <div className="overflow-x-auto bg-base-100 shadow-md rounded-xl">
-        <table className="table w-full text-center">
-          <thead className="bg-base-200">
-            <tr className="text-sm text-gray-700">
-              <th>#</th>
-              {/* <th>Bill ID</th> */}
-              {/* <th>Title</th> */}
-              <th>Username</th>
-              <th>Phone</th>
-              <th>Email</th>
-              <th>Amount</th>
-              <th>Date</th>
-              <th>Address</th>
-              <th>Action</th>
-            </tr>
-          </thead>
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          <div className="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm">
+            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">
+              Total Payments
+            </p>
+            <h3 className="text-3xl font-black text-slate-800 dark:text-white">
+              {payments.length}
+            </h3>
+          </div>
+          <div className="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm">
+            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">
+              Total Expenditure
+            </p>
+            <h3 className="text-3xl font-black text-[#0D9488]">
+              {totalAmount}{" "}
+              <span className="text-sm font-bold opacity-60">BDT</span>
+            </h3>
+          </div>
+          <div className="bg-[#0D9488] p-6 rounded-3xl shadow-lg shadow-teal-500/20 text-white">
+            <p className="text-[10px] font-black uppercase tracking-widest opacity-80 mb-1">
+              Account Status
+            </p>
+            <h3 className="text-3xl font-black italic">Verified</h3>
+          </div>
+        </div>
 
-          <tbody>
-            {payments.map((bill, i) => (
-              <tr key={bill._id} className="hover:bg-base-200 transition-all">
-                <td>{i + 1}</td>
-                {/* <td>{bill.billId || "N/A"}</td> */}
-                {/* <td>{bill.billTitle || bill.title || "Utility Bill"}</td> */}
-                <td>{bill.username || "N/A"}</td>
-                <td>{bill.phone || "N/A"}</td>
-                <td>{bill.email || user.email}</td>
-                <td className="text-green-600 font-medium">{bill.amount} ৳</td>
-                <td>{new Date(bill.date).toLocaleDateString()}</td>
-                <td>{bill.address || "Not provided"}</td>
-                <td className="flex justify-center gap-2">
-                  <button
-                    onClick={() => handleDownload(bill)}
-                    className="btn btn-xs btn-outline text-[#632EE3] border-[#632EE3] hover:bg-[#632EE3] hover:text-white"
+        {/* Table Section */}
+        <div className="bg-white dark:bg-slate-800 rounded-[2.5rem] shadow-xl shadow-slate-200/50 dark:shadow-none overflow-hidden border border-slate-100 dark:border-slate-700">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-slate-50 dark:bg-slate-900/50">
+                  <th className="p-6 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    #
+                  </th>
+                  <th className="p-6 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    Recipient
+                  </th>
+                  <th className="p-6 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    Contact/Email
+                  </th>
+                  <th className="p-6 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    Amount
+                  </th>
+                  <th className="p-6 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    Settled On
+                  </th>
+                  <th className="p-6 text-[10px] font-black uppercase tracking-widest text-slate-400 text-center">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
+                {payments.map((bill, i) => (
+                  <tr
+                    key={bill._id}
+                    className="hover:bg-slate-50 dark:hover:bg-slate-900/20 transition-colors group"
                   >
-                    Download
-                  </button>
-                  <button
-                    onClick={() => handleUpdate(bill)}
-                    className="btn btn-xs btn-outline text-blue-600 border-blue-600 hover:bg-blue-600 hover:text-white"
-                  >
-                    Update
-                  </button>
-                  <button
-                    onClick={() => handleDelete(bill._id)}
-                    className="btn btn-xs btn-outline text-red-500 border-red-500 hover:bg-red-500 hover:text-white"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                    <td className="p-6 font-bold text-slate-400">{i + 1}</td>
+                    <td className="p-6">
+                      <div className="font-bold text-slate-800 dark:text-white">
+                        {bill.username}
+                      </div>
+                      <div className="text-xs text-slate-400 truncate max-w-[150px]">
+                        {bill.address || "No Address"}
+                      </div>
+                    </td>
+                    <td className="p-6">
+                      <div className="text-sm font-bold text-slate-600 dark:text-slate-300">
+                        {bill.phone}
+                      </div>
+                      <div className="text-xs text-slate-400">{bill.email}</div>
+                    </td>
+                    <td className="p-6">
+                      <span className="bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-3 py-1 rounded-full text-sm font-black">
+                        ৳{bill.amount}
+                      </span>
+                    </td>
+                    <td className="p-6 text-sm font-bold text-slate-500 dark:text-slate-400">
+                      {new Date(bill.date).toLocaleDateString("en-GB")}
+                    </td>
+                    <td className="p-6">
+                      <div className="flex justify-center gap-3">
+                        <button
+                          onClick={() => handleDownload(bill)}
+                          className="p-3 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl hover:bg-[#0D9488] hover:text-white transition-all shadow-sm"
+                          title="Download Receipt"
+                        >
+                          <FaDownload />
+                        </button>
+                        <button
+                          onClick={() => handleUpdate(bill)}
+                          className="p-3 bg-blue-50 dark:bg-blue-500/10 text-blue-600 rounded-xl hover:bg-blue-600 hover:text-white transition-all shadow-sm"
+                          title="Edit Record"
+                        >
+                          <FaPenToSquare />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(bill._id)}
+                          className="p-3 bg-red-50 dark:bg-red-500/10 text-red-500 rounded-xl hover:bg-red-500 hover:text-white transition-all shadow-sm"
+                          title="Delete Record"
+                        >
+                          <FaTrashCan />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   );

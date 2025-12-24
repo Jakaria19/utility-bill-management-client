@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Hero = () => {
   const [slides, setSlides] = useState([]);
@@ -15,84 +16,133 @@ const Hero = () => {
     if (slides.length === 0) return;
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
-    }, 4000);
+    }, 5000);
     return () => clearInterval(interval);
   }, [slides]);
 
   if (slides.length === 0) {
     return (
-      <p className="flex items-center justify-center py-20">
-        <span className="loading loading-bars loading-xl"></span>
-      </p>
+      <div className="flex flex-col items-center justify-center py-24">
+        <span className="loading loading-spinner loading-lg text-[#10B981]"></span>
+        <p className="mt-4 text-slate-400 font-bold animate-pulse">
+          Initializing Portal...
+        </p>
+      </div>
     );
   }
 
   return (
-    <div className="relative w-full overflow-hidden rounded-lg mt-16 bg-linear-to-r from-[#0D9488] via-[#10B981] to-[#059669]">
+    <div className="relative w-full overflow-hidden rounded-[2.5rem] mt-20 bg-slate-100 dark:bg-[#1E293B] shadow-2xl border border-white/20">
+      {/* Background Glow Decorations */}
+      <div className="absolute top-[-20%] left-[-10%] w-96 h-96 bg-[#0D9488]/20 rounded-full blur-[100px] pointer-events-none"></div>
+      <div className="absolute bottom-[-20%] right-[-10%] w-96 h-96 bg-[#10B981]/20 rounded-full blur-[100px] pointer-events-none"></div>
+
       <div
-        className="flex transition-transform duration-3000 ease-in-out"
+        className="flex transition-transform duration-1000 ease-out"
         style={{ transform: `translateX(-${current * 100}%)` }}
       >
         {slides.map((slide, index) => (
           <div key={index} className="w-full flex-shrink-0">
             {slide.type === "hero" ? (
-              <div className="w-full h-[550px] flex flex-col-reverse lg:flex-row items-center justify-center gap-10 px-6 py-20">
-                <div className="text-center lg:text-left space-y-6">
-                  <h1 className="text-5xl font-extrabold text-white drop-shadow-md">
-                    {slide.title}
+              <div className="w-full min-h-[500px] lg:h-[600px] flex flex-col-reverse lg:flex-row items-center justify-between gap-10 px-8 lg:px-20 py-16">
+                {/* Text Content */}
+                <motion.div
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="text-center lg:text-left space-y-8 z-10 lg:w-1/2"
+                >
+                  <h1 className="text-4xl md:text-6xl font-black text-slate-800 dark:text-white leading-tight">
+                    {slide.title.split(" ").map((word, i) =>
+                      i === slide.title.split(" ").length - 1 ? (
+                        <span
+                          key={i}
+                          className="bg-gradient-to-r from-[#0D9488] to-[#10B981] bg-clip-text text-transparent"
+                        >
+                          {" "}
+                          {word}
+                        </span>
+                      ) : (
+                        word + " "
+                      )
+                    )}
                   </h1>
-                  <p className="text-lg text-gray-100 max-w-xl mx-auto lg:mx-0">
+                  <p className="text-lg text-slate-500 dark:text-slate-300 font-medium max-w-xl mx-auto lg:mx-0 leading-relaxed">
                     {slide.description}
                   </p>
-                  <button className="btn bg-linear-to-r from-[#0D9488] to-[#059669] hover:from-[#059669] hover:to-[#10B981] text-white px-8 py-3 rounded-lg font-semibold shadow-md">
-                    {slide.buttonText}
-                  </button>
-                </div>
-                <img
-                  src={slide.logo}
-                  alt={slide.title || "Hero Image"}
-                  className="p-4 max-h-[400px]"
-                />
+                  <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+                    <button className="bg-[#0D9488] hover:bg-[#10B981] text-white px-10 py-4 rounded-2xl font-black shadow-lg shadow-teal-200 dark:shadow-none transition-all duration-300 transform hover:scale-105 active:scale-95 uppercase tracking-widest text-xs">
+                      {slide.buttonText || "Get Started"}
+                    </button>
+                    <button className="bg-white dark:bg-slate-800 text-slate-700 dark:text-white border-2 border-slate-200 dark:border-slate-700 px-10 py-4 rounded-2xl font-black transition-all duration-300 hover:border-[#10B981] uppercase tracking-widest text-xs">
+                      Learn More
+                    </button>
+                  </div>
+                </motion.div>
+
+                {/* Illustration Section */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8 }}
+                  className="lg:w-1/2 flex justify-center z-10"
+                >
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-tr from-[#0D9488] to-[#10B981] rounded-full blur-3xl opacity-20 animate-pulse"></div>
+                    <img
+                      src={slide.logo}
+                      alt="Hero"
+                      className="relative z-10 max-h-[350px] lg:max-h-[450px] drop-shadow-[0_35px_35px_rgba(13,148,136,0.25)] transition-transform duration-700 hover:rotate-3"
+                    />
+                  </div>
+                </motion.div>
               </div>
             ) : (
-              <img
-                src={slide.img}
-                alt={`Slide ${index + 1}`}
-                className="w-full h-[550px] object-cover"
-              />
+              <div className="relative w-full h-[500px] lg:h-[600px]">
+                <img
+                  src={slide.img}
+                  alt={`Slide ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end p-12">
+                  <h3 className="text-3xl font-bold text-white">
+                    {slide.title}
+                  </h3>
+                </div>
+              </div>
             )}
           </div>
         ))}
       </div>
 
-      {/* navigation buttons */}
-      <div className="absolute flex justify-between top-1/2 left-5 right-5 -translate-y-1/2">
+      {/* Navigation Buttons (Modern Style) */}
+      <div className="absolute hidden md:flex justify-between top-1/2 left-8 right-8 -translate-y-1/2 z-20">
         <button
           onClick={() =>
             setCurrent((prev) => (prev - 1 + slides.length) % slides.length)
           }
-          className="btn btn-circle bg-linear-to-r from-[#10B981] to-[#0D9488] border-none text-white"
+          className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 text-slate-800 dark:text-white hover:bg-[#0D9488] hover:text-white transition-all duration-300"
         >
           ❮
         </button>
         <button
           onClick={() => setCurrent((prev) => (prev + 1) % slides.length)}
-          className="btn btn-circle bg-linear-to-l from-[#10B981] to-[#0D9488] border-none text-white"
+          className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 text-slate-800 dark:text-white hover:bg-[#0D9488] hover:text-white transition-all duration-300"
         >
           ❯
         </button>
       </div>
 
-      {/* dots */}
-      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2">
+      {/* Progress Indicators (Pill Style) */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-20">
         {slides.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}
-            className={`w-3 h-3 rounded-full transition-all ${
+            className={`transition-all duration-500 rounded-full ${
               i === current
-                ? "bg-white scale-125"
-                : "bg-gray-300 hover:bg-gray-400"
+                ? "w-10 h-3 bg-[#0D9488]"
+                : "w-3 h-3 bg-slate-300 dark:bg-slate-600 hover:bg-[#10B981]/50"
             }`}
           ></button>
         ))}
