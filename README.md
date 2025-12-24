@@ -1,16 +1,75 @@
-# React + Vite
+Utility Bill Management System
+A full-stack web application designed to help users manage and track their utility bills efficiently. Users can view available bills, pay them, and maintain a history of their payments.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🚀 Live Links
+Client Side: https://utility-bill-management-client.vercel.app
 
-Currently, two official plugins are available:
+🛠️ Tech Stack
+Frontend: React.js, Tailwind CSS.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Backend: Node.js, Express.js.
 
-## React Compiler
+Database: MongoDB Atlas.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Authentication: Firebase (Social Login/Email-Password).
 
-## Expanding the ESLint configuration
+Deployment: Vercel.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+✨ Features
+Public Routes:
+
+Home Page: Displays a banner and the 6 most recent bills.
+
+Bills Page: Lists all available bills with category filtering options.
+
+Private Routes (User only):
+
+Bill Details: View detailed information about a specific bill.
+
+Pay Bill: Functional payment simulation to pay bills.
+
+My Paid Bills: View, update, or delete personal payment records.
+
+Responsive Design: Optimized for Mobile, Tablet, and Desktop.
+
+📂 Database Structure (MongoDB)
+The project uses the following collections in the UtilityBillDB database:
+
+bills: Contains all available utility bill data.
+
+payments: Stores user-specific payment history.
+
+⚙️ Installation & Setup
+Clone the repository:
+
+Bash
+
+git clone <repository-url>
+Install Dependencies:
+
+Bash
+
+cd client && npm install
+cd ../server && npm install
+Set up Environment Variables: Create a .env file in the server directory with:
+
+Code snippet
+
+DB_USER=adminUser
+DB_PASS=your_password
+Run the Project:
+
+Bash
+
+# In server directory
+npm start
+# In client directory
+npm run dev
+🔗 API Endpoints
+GET /bills - Fetch all bills.
+
+GET /recent-bills - Fetch the latest 6 bills.
+
+POST /payments - Save a new bill payment.
+
+GET /payments?email=user@email.com - Fetch payments for a specific user.
