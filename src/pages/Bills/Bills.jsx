@@ -15,7 +15,7 @@ const Bills = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
-    fetch("https://utility-bill-management.vercel.app/bills")
+    fetch("https://utility-bill-management-server-chi.vercel.app/bills")
       .then((res) => res.json())
       .then((data) => {
         setBills(data);

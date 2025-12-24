@@ -13,7 +13,7 @@ const RecentBills = () => {
   const [bills, setBills] = useState([]);
 
   useEffect(() => {
-    fetch("https://utility-bill-management.vercel.app/recent-bills")
+    fetch("https://utility-bill-management-server-chi.vercel.app/bills")
       .then((res) => res.json())
       .then((data) => setBills(data))
       .catch((err) => console.error("Error fetching bills:", err));

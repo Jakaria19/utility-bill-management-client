@@ -20,7 +20,7 @@ const AddBill = () => {
       email: user?.email || "unknown@gmail.com",
     };
 
-    fetch("https://utility-bill-management.vercel.app/bills", {
+    fetch("https://utility-bill-management-server-chi.vercel.app/bills", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

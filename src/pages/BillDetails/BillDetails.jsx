@@ -20,7 +20,7 @@ const BillDetails = () => {
 
   //  fetch single bill data
   useEffect(() => {
-    fetch(`https://utility-bill-management.vercel.app/bills/${id}`)
+    fetch(`https://utility-bill-management-server-chi.vercel.app/bills/${id}`)
       .then((res) => res.json())
       .then((data) => {
         if (data?.success && data?.result) {
