@@ -5,7 +5,7 @@
     "title": "Effortless Utility Management for Modern Living",
     "description": "Experience a seamless way to settle your electricity, water, and broadband bills. PaySwift ensures your transactions are secure, swift, and completely stress-free.",
     "buttonText": "Pay Bills Now",
-    "logo": "https://i.ibb.co.com/6JcMDt2w/banner2.png"
+    "logo": ""
   },
   {
     "id": 2,
@@ -13,12 +13,12 @@
     "title": "Take Control of Your Monthly Expenses",
     "description": "Monitor your usage patterns and clear your dues instantly. Get real-time alerts and smart insights so you never miss a payment deadline ever again.",
     "buttonText": "Explore Dashboard",
-    "logo": "https://i.ibb.co.com/ymJytsMW/banner3.png"
+    "logo": ""
   },
   {
     "id": 3,
     "type": "image",
     "title": "Global Standard Security with PaySwift",
-    "img": "https://pay99.co.in/assets/website-assets/img/banner1.png"
+    "img": ""
   }
 ]

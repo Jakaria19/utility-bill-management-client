@@ -6,7 +6,7 @@ const Hero = () => {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-    fetch("../../../public/data.json")
+    fetch("/data.json")
       .then((res) => res.json())
       .then((data) => setSlides(data))
       .catch((err) => console.error("Failed to load slides:", err));
