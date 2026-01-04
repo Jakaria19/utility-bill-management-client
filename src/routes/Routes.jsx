@@ -14,6 +14,9 @@ import About from "../pages/About/About";
 import Help from "../pages/Help/Help";
 import DashboardLayout from "../layouts/DashboardLayout";
 import DashboardHome from "../pages/Dashboard/DashboardHome";
+import ManageAllBills from "../pages/Dashboard/Admin/ManageAllBills";
+import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
+import AdminRoute from "../Private/AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +52,22 @@ export const router = createBrowserRouter([
       { path: "my-history", element: <MyBills /> },
       { path: "add-bill", element: <AddBill /> },
       { path: "profile", element: <Profile /> },
+      {
+        path: "all-bills",
+        element: (
+          <AdminRoute>
+            <ManageAllBills />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-users",
+        element: (
+          <AdminRoute>
+            <ManageUsers />
+          </AdminRoute>
+        ),
+      },
     ],
   },
 ]);
