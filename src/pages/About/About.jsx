@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-// import about from "../../assets/about.png";
 import { Link } from "react-router-dom";
 import {
   FaCircleCheck,
@@ -14,44 +13,36 @@ const About = () => {
       <div className="absolute top-[-10%] right-[-10%] w-[30%] h-[30%] bg-[#0D9488]/5 rounded-full blur-[120px] pointer-events-none"></div>
       <div className="absolute bottom-[-10%] left-[-10%] w-[30%] h-[30%] bg-[#10B981]/5 rounded-full blur-[120px] pointer-events-none"></div>
 
-      {/* Image Section */}
+      {/* Left Section - Feature Highlights */}
       <motion.div
-        className="lg:w-1/2 flex justify-center lg:justify-start mb-16 lg:mb-0 relative"
+        className="lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-6 mb-16 lg:mb-0 relative"
         initial={{ opacity: 0, x: -50 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        <div className="relative group">
-          {/* Accent Border Box */}
-          <div className="absolute -inset-4 border-2 border-[#0D9488]/20 rounded-[3rem] -rotate-3 group-hover:rotate-0 transition-transform duration-500"></div>
+        <div className="p-8 bg-white dark:bg-slate-800 rounded-[2rem] shadow-xl border border-slate-100 dark:border-slate-700 transform hover:-translate-y-2 transition-transform">
+          <div className="bg-teal-100 dark:bg-teal-900/30 p-4 rounded-2xl w-fit mb-4">
+            <FaShieldHalved className="text-2xl text-[#0D9488]" />
+          </div>
+          <h3 className="text-xl font-black text-slate-800 dark:text-white mb-2">
+            Secure Vault
+          </h3>
+          <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
+            Your financial data is encrypted with bank-grade security protocols.
+          </p>
+        </div>
 
-          {/* <img
-            src={about}
-            alt="About PaySwift"
-            className="relative z-10 rounded-[2.5rem] shadow-2xl w-full max-w-lg object-cover border border-white dark:border-slate-700"
-          /> */}
-
-          {/* Small Floating Info Card */}
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 4, repeat: Infinity }}
-            className="absolute -bottom-6 -right-6 z-20 bg-white dark:bg-slate-800 p-6 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-700 hidden md:block"
-          >
-            <div className="flex items-center gap-4">
-              <div className="bg-[#0D9488] p-3 rounded-2xl text-white">
-                <FaShieldHalved />
-              </div>
-              <div>
-                <p className="text-xs font-black uppercase tracking-tighter text-slate-400">
-                  Security
-                </p>
-                <p className="text-sm font-bold text-slate-800 dark:text-white">
-                  Bank-Grade Protection
-                </p>
-              </div>
-            </div>
-          </motion.div>
+        <div className="p-8 bg-white dark:bg-slate-800 rounded-[2rem] shadow-xl border border-slate-100 dark:border-slate-700 mt-0 md:mt-12 transform hover:-translate-y-2 transition-transform">
+          <div className="bg-emerald-100 dark:bg-emerald-900/30 p-4 rounded-2xl w-fit mb-4">
+            <FaBoltLightning className="text-2xl text-[#10B981]" />
+          </div>
+          <h3 className="text-xl font-black text-slate-800 dark:text-white mb-2">
+            Fast Settle
+          </h3>
+          <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
+            Instant bill processing with real-time confirmation from providers.
+          </p>
         </div>
       </motion.div>
 
@@ -78,20 +69,17 @@ const About = () => {
         <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed font-medium">
           PaySwift is more than just a payment portal. We are a secure ecosystem
           designed to streamline your life by unifying your utilities—
-          <span className="text-slate-800 dark:text-white font-bold underline decoration-[#10B981] decoration-2 underline-offset-4">
-            {" "}
+          <span className="text-slate-800 dark:text-white font-bold underline decoration-[#10B981] decoration-2 underline-offset-4 mx-1">
             Electricity
           </span>
           ,
-          <span className="text-slate-800 dark:text-white font-bold underline decoration-[#10B981] decoration-2 underline-offset-4">
-            {" "}
+          <span className="text-slate-800 dark:text-white font-bold underline decoration-[#10B981] decoration-2 underline-offset-4 mx-1">
             Gas
           </span>
           , and
-          <span className="text-slate-800 dark:text-white font-bold underline decoration-[#10B981] decoration-2 underline-offset-4">
-            {" "}
+          <span className="text-slate-800 dark:text-white font-bold underline decoration-[#10B981] decoration-2 underline-offset-4 mx-1">
             Internet
-          </span>{" "}
+          </span>
           — into one seamless dashboard.
         </p>
 
@@ -112,13 +100,18 @@ const About = () => {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center gap-6 pt-4">
-          <motion.button
+          <motion.div
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full sm:w-auto bg-gradient-to-r from-[#0D9488] to-[#10B981] text-white py-5 px-10 rounded-2xl font-black shadow-xl shadow-teal-500/20 uppercase tracking-widest text-xs transition-all"
+            className="w-full sm:w-auto"
           >
-            <Link to="/help">Explore Features</Link>
-          </motion.button>
+            <Link
+              to="/help"
+              className="block text-center bg-gradient-to-r from-[#0D9488] to-[#10B981] text-white py-5 px-10 rounded-2xl font-black shadow-xl shadow-teal-500/20 uppercase tracking-widest text-xs transition-all"
+            >
+              Explore Features
+            </Link>
+          </motion.div>
 
           <Link
             to="/register"

@@ -6,7 +6,7 @@ const ManageUsers = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch("https://utility-bill-management-server-chi.vercel.app//users")
+    fetch("https://utility-bill-management-server-chi.vercel.app/users")
       .then((res) => res.json())
       .then((data) => setUsers(data));
   }, []);

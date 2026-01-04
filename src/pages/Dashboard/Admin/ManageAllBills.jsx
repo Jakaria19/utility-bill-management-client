@@ -7,7 +7,7 @@ const ManageAllBills = () => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    fetch("https://utility-bill-management-server-chi.vercel.app//all-bills")
+    fetch("https://utility-bill-management-server-chi.vercel.app/all-bills")
       .then((res) => res.json())
       .then((data) => setBills(data));
   }, []);
